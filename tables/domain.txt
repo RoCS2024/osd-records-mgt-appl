@@ -1,0 +1,29 @@
+Hibernate: drop table cs_rendered cascade constraints
+Hibernate: drop table cs_report cascade constraints
+Hibernate: drop table cs_slip cascade constraints
+Hibernate: drop table employee cascade constraints
+Hibernate: drop table external cascade constraints
+Hibernate: drop table guest cascade constraints
+Hibernate: drop table offense cascade constraints
+Hibernate: drop table student cascade constraints
+Hibernate: drop table violation cascade constraints
+Hibernate: create table cs_rendered (hours_completed number(10,0) not null, date_rendered timestamp(6), id number(19,0) generated as identity, student_id number(19,0) unique, primary key (id))
+Hibernate: create table cs_report (hours_completed number(10,0) not null, cs_slip_id number(19,0) unique, date_of_cs timestamp(6), employee_id number(19,0), id number(19,0) generated as identity, time_in timestamp(6), time_out timestamp(6), status varchar2(16 char), nature_of_work varchar2(32 char), station varchar2(32 char), remarks varchar2(64 char), primary key (id))
+Hibernate: create table cs_slip (hours_required number(10,0) not null, id number(19,0) generated as identity, student_id number(19,0) unique, violation_id number(19,0), area_of_comm_serv varchar2(255 char), primary key (id))
+Hibernate: create table employee (birthdate timestamp(6), id number(19,0) generated as identity, contact_number varchar2(11 char), address varchar2(32 char), email varchar2(32 char), first_name varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), position_in_rc varchar2(32 char), religion varchar2(32 char), employee_number varchar2(255 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table external (birthdate timestamp(6), external_id number(19,0), id number(19,0) generated as identity, contact_number varchar2(11 char), address varchar2(32 char), email varchar2(32 char), first_name varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table guest (birthdate timestamp(6), guest_id number(19,0), id number(19,0) generated as identity, contact_number varchar2(11 char), address varchar2(32 char), email varchar2(32 char), first_name varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table offense (id number(19,0) generated as identity, type varchar2(8 char), description varchar2(32 char), primary key (id))
+Hibernate: create table student (birthdate timestamp(6), id number(19,0) generated as identity, student_number varchar2(10 char), contact_number varchar2(11 char), section varchar2(16 char), address varchar2(32 char), cluster_head varchar2(32 char), email varchar2(32 char), first_name varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), course varchar2(64 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table violation (cs_hours number(10,0) not null, warning_number number(10,0) not null, date_of_notice timestamp(6), id number(19,0) generated as identity, offense_id number(19,0) unique, student_id number(19,0) unique, disciplinary_action varchar2(64 char), primary key (id))
+Hibernate: alter table cs_rendered add constraint FKc0iichlwu1knlpishgj8xirv3 foreign key (student_id) references student
+Hibernate: alter table cs_report add constraint FKf3gyuqinx6u2ujde9mk2ai83u foreign key (cs_slip_id) references cs_slip
+Hibernate: alter table cs_report add constraint FKet3h1o9d5lm0kaf7u9006a8qy foreign key (employee_id) references employee
+Hibernate: alter table cs_slip add constraint FKok5k2khxw9gqvakn8hpq8a05j foreign key (student_id) references student
+Hibernate: alter table cs_slip add constraint FKf55mxxa2be6g9k2qi9vw025u8 foreign key (violation_id) references violation
+Hibernate: alter table violation add constraint FKja98i9pvfks4nap7xkhopdk2v foreign key (offense_id) references offense
+Hibernate: alter table violation add constraint FKiydpoyi8rvlos5qcgxjvigcfb foreign key (student_id) references student
+2024-05-11T00:03:08.192+08:00  INFO 12116 --- [porms-web-appl] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-11T00:03:08.651+08:00  WARN 12116 --- [porms-web-appl] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-11T00:03:09.115+08:00  INFO 12116 --- [porms-web-appl] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-05-11T00:03:09.125+08:00  INFO 12116 --- [porms-web-appl] [           main] com.rocs.porms.PormsWebApplication       : Started PormsWebApplication in 9.66 seconds (process running for 12.26)

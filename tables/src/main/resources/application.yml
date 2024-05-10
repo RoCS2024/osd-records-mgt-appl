@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: test
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:rogate
+    username: system
+    password: Changeme0
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
