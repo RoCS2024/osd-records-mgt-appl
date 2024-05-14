@@ -1,6 +1,6 @@
 spring:
   application:
-    name: test
+    name: porms-web-appl
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:rogate
     username: system
@@ -9,3 +9,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+server:
+  port: 8080
+logging:
+  level:
+    org.springframework.security.web: info
+    root: info
+  file:
+    name: build/log/${spring.application.name}.log

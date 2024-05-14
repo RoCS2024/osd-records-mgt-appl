@@ -1,0 +1,45 @@
+Hibernate: drop table cs_report cascade constraints
+Hibernate: drop table cs_slip cascade constraints
+Hibernate: drop table cs_slip_reports cascade constraints
+Hibernate: drop table cs_slip_violations cascade constraints
+Hibernate: drop table employee cascade constraints
+Hibernate: drop table external cascade constraints
+Hibernate: drop table guest cascade constraints
+Hibernate: drop table guest_benefactor cascade constraints
+Hibernate: drop table offense cascade constraints
+Hibernate: drop table section cascade constraints
+Hibernate: drop table station cascade constraints
+Hibernate: drop table student cascade constraints
+Hibernate: drop table violation cascade constraints
+Hibernate: drop table violation_noted_by cascade constraints
+Hibernate: create table cs_report (hours_completed number(10,0) not null, date_of_cs timestamp(6), id number(19,0) generated as identity, time_in timestamp(6), time_out timestamp(6), status varchar2(16 char), nature_of_work varchar2(32 char), remarks varchar2(64 char), primary key (id))
+Hibernate: create table cs_slip (deduction number(10,0) not null, area_of_comm_serv_id number(19,0), id number(19,0) generated as identity, student_id number(19,0) unique, reason_of_cs varchar2(255 char), primary key (id))
+Hibernate: create table cs_slip_reports (cs_slip_id number(19,0) not null, reports_id number(19,0) not null unique)
+Hibernate: create table cs_slip_violations (cs_slip_id number(19,0) not null, violations_id number(19,0) not null unique)
+Hibernate: create table employee (birthdate timestamp(6), date_employed timestamp(6), id number(19,0) generated as identity, station_id number(19,0) unique, contact_number varchar2(11 char), email varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), position_in_rc varchar2(32 char), religion varchar2(32 char), first_name varchar2(64 char), address varchar2(255 char), birthplace varchar2(255 char), citizenship varchar2(255 char), civil_status varchar2(255 char), employee_number varchar2(255 char), pagibig_no varchar2(255 char), sex varchar2(255 char), sss_no varchar2(255 char), tin_no varchar2(255 char), primary key (id))
+Hibernate: create table external (birthdate timestamp(6), external_id number(19,0), id number(19,0) generated as identity, station_id number(19,0) unique, contact_number varchar2(11 char), email varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), first_name varchar2(64 char), address varchar2(255 char), birthplace varchar2(255 char), citizenship varchar2(255 char), civil_status varchar2(255 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table guest (birthdate timestamp(6), guest_id number(19,0), id number(19,0) generated as identity, contact_number varchar2(11 char), email varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), first_name varchar2(64 char), address varchar2(255 char), birthplace varchar2(255 char), citizenship varchar2(255 char), civil_status varchar2(255 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table guest_benefactor (benefactor_id number(19,0) not null unique, guest_id number(19,0) not null)
+Hibernate: create table offense (id number(19,0) generated as identity, type varchar2(8 char), description varchar2(32 char), primary key (id))
+Hibernate: create table section (section_id number(19,0) generated as identity, cluster_head varchar2(255 char), cluster_name varchar2(255 char), section_course varchar2(255 char), section_name varchar2(255 char), primary key (section_id))
+Hibernate: create table station (id number(19,0) generated as identity, station_name varchar2(255 char), primary key (id))
+Hibernate: create table student (birthdate timestamp(6), id number(19,0) generated as identity, section_section_id number(19,0) unique, student_number varchar2(10 char), contact_number varchar2(11 char), email varchar2(32 char), last_name varchar2(32 char), middle_name varchar2(32 char), religion varchar2(32 char), first_name varchar2(64 char), address varchar2(255 char), birthplace varchar2(255 char), citizenship varchar2(255 char), civil_status varchar2(255 char), sex varchar2(255 char), primary key (id))
+Hibernate: create table violation (cs_hours number(10,0) not null, warning_number number(10,0) not null, approved_by_id number(19,0) unique, date_of_notice timestamp(6), id number(19,0) generated as identity, offense_id number(19,0) unique, student_id number(19,0) unique, disciplinary_action varchar2(64 char), primary key (id))
+Hibernate: create table violation_noted_by (noted_by_id number(19,0) not null unique, violation_id number(19,0) not null)
+Hibernate: alter table cs_slip add constraint FKq9h4wmbgn7804qa9brnhegxr8 foreign key (area_of_comm_serv_id) references station
+Hibernate: alter table cs_slip add constraint FKok5k2khxw9gqvakn8hpq8a05j foreign key (student_id) references student
+Hibernate: alter table cs_slip_reports add constraint FKmy5fri0i8c4t45jimcwjb2qei foreign key (reports_id) references cs_report
+Hibernate: alter table cs_slip_reports add constraint FKiejhxnvkdm6mg06exxa5undqe foreign key (cs_slip_id) references cs_slip
+Hibernate: alter table cs_slip_violations add constraint FKuudvgj2wavga2jbebr33jmvs foreign key (violations_id) references violation
+Hibernate: alter table cs_slip_violations add constraint FKp96cp8mai0xn6uktd5j3gakd4 foreign key (cs_slip_id) references cs_slip
+Hibernate: alter table employee add constraint FKel554cwx4da7xqbrlpv34429g foreign key (station_id) references station
+Hibernate: alter table external add constraint FKoectj3bwy6h6gr4t75f1lm4jy foreign key (station_id) references station
+Hibernate: alter table guest_benefactor add constraint FKqe59lr452mcakdwklhwr7cjqb foreign key (benefactor_id) references student
+Hibernate: alter table guest_benefactor add constraint FKr47cf1mvwqd06ou3rp6c9j699 foreign key (guest_id) references guest
+Hibernate: alter table student add constraint FKsyief3e9gm14gu33mciuv1vaj foreign key (section_section_id) references section
+Hibernate: alter table violation add constraint FKq169jlm8muj3eq1yr3m6hc72i foreign key (approved_by_id) references employee
+Hibernate: alter table violation add constraint FKja98i9pvfks4nap7xkhopdk2v foreign key (offense_id) references offense
+Hibernate: alter table violation add constraint FKiydpoyi8rvlos5qcgxjvigcfb foreign key (student_id) references student
+Hibernate: alter table violation_noted_by add constraint FK9aem3q6r9pdy0gpmvqyyaw71c foreign key (noted_by_id) references employee
+Hibernate: alter table violation_noted_by add constraint FKiys5wf3rtnq80ucfaxgfte141 foreign key (violation_id) references violation
+
