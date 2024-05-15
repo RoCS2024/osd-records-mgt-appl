@@ -17,7 +17,7 @@ public class CsSlip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Student student;
     private String reasonOfCs;
     @ManyToOne
@@ -27,5 +27,6 @@ public class CsSlip implements Serializable {
 
     @OneToMany
     private List<Violation> violations;
+
     private int deduction;
 }

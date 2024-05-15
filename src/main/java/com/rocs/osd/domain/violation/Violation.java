@@ -26,8 +26,8 @@ public class Violation implements Serializable {
     private int csHours;
     @Column(length = 64)
     private String disciplinaryAction;
-    @ManyToMany
+    @OneToMany
     private List<Employee> notedBy;
-    @ManyToOne
+    @OneToOne
     private Employee approvedBy;
 }

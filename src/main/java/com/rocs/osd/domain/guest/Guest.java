@@ -15,5 +15,5 @@ public class Guest extends Person implements Serializable {
 
     private Long guestId;
     @OneToMany
-    private List<Student> benefactor;
+    private List<Student> beneficiary;
 }
