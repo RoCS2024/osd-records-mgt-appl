@@ -20,7 +20,7 @@ public class Violation implements Serializable {
     private Date dateOfNotice;
     @ManyToOne
     private Student student;
-    @OneToOne
+    @ManyToOne
     private Offense offense;
     private int warningNumber;
     private int csHours;
@@ -28,6 +28,6 @@ public class Violation implements Serializable {
     private String disciplinaryAction;
     @OneToMany
     private List<Employee> notedBy;
-    @OneToOne
+    @ManyToOne
     private Employee approvedBy;
 }

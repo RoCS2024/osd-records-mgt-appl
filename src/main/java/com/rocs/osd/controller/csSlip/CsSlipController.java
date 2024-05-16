@@ -1,5 +1,6 @@
 package com.rocs.osd.controller.csSlip;
 
+import com.rocs.osd.domain.csReport.CsReport;
 import com.rocs.osd.domain.csSlip.CsSlip;
 import com.rocs.osd.service.csSlip.CsSlipService;
 import org.springframework.beans.factory.annotation.Autowired;
