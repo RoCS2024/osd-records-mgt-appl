@@ -46,4 +46,18 @@ public class CsSlipController {
         }
     }
 //    http://localhost:8080/CSSlip/updateDeduction/1?deduction=2
+
+
+    @PostMapping("/csSlip")
+    public ResponseEntity<String> addCsSlip(@RequestBody CsSlip csSlip){
+        try {
+            csSlipService.addCsSlip(csSlip);
+            return new ResponseEntity<>("Community Service Slip successfully added", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Community Service Slip cannot be added", HttpStatus.OK);
+        }
+    }
+
+
+
 }

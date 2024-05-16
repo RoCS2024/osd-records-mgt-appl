@@ -6,4 +6,7 @@ import java.util.List;
 
 public interface OffenseService {
     List<Offense> getAllOffense();
+
+    List<Offense> getOffenseByType(String type);
+
 }

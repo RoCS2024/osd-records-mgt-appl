@@ -6,6 +6,7 @@ import com.rocs.osd.service.violation.ViolationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,4 +33,10 @@ public class ViolationServiceImpl implements ViolationService {
     public List<Violation> getAllViolationByStudentId(Long studentId) {
         return violationRepository.findByStudentId(studentId);
     }
+
+    @Override
+    public List<Violation> getViolationsByDateRange(Date startDate, Date endDate) {
+        return violationRepository.findByDateOfNoticeBetween(startDate, endDate);
+    }
+
 }

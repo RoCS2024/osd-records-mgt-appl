@@ -3,13 +3,12 @@ package com.rocs.osd.controller.violation;
 import com.rocs.osd.domain.violation.Violation;
 import com.rocs.osd.service.violation.ViolationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,4 +36,13 @@ public class ViolationController {
     public ResponseEntity<List<Violation>> getAllViolationByStudentId(@PathVariable Long studentId) {
         return new ResponseEntity<>(this.violationService.getAllViolationByStudentId(studentId), HttpStatus.OK);
     }
+
+    @GetMapping("/violation/date-range")
+    public ResponseEntity<List<Violation>> getViolationsByDateRange(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+        return new ResponseEntity<>(this.violationService.getViolationsByDateRange(startDate, endDate), HttpStatus.OK);
+    }
+
+
 }
