@@ -20,4 +20,8 @@ public class OffenseServiceImpl implements OffenseService {
     public List<Offense> getAllOffense() {
         return offenseRepository.findAll();
     }
+
+    @Override
+    public List<Offense> getOffenseByType(String type) {return offenseRepository.findByType(type); }
+
 }

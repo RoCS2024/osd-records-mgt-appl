@@ -23,4 +23,10 @@ public class OffenseController {
     public ResponseEntity<List<Offense>> getAllOffense() {
         return new ResponseEntity<>(offenseService.getAllOffense(), HttpStatus.OK);
     }
+
+    @GetMapping("/offense/{type}")
+    public ResponseEntity<List<Offense>> getOffenseByType(@PathVariable String type) {
+        List<Offense> offenses = offenseService.getOffenseByType(type);
+        return new ResponseEntity<>(offenses, HttpStatus.OK);
+    }
 }

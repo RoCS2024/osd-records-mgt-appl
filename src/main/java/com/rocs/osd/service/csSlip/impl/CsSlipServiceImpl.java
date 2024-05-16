@@ -56,4 +56,7 @@ public class CsSlipServiceImpl implements CsSlipService {
         csSlip.setDeduction(deduction);
         csSlipRepository.save(csSlip);
     }
+
+    @Override
+    public CsSlip addCsSlip(CsSlip csSlip) {return csSlipRepository.save(csSlip); }
 }

@@ -10,6 +10,9 @@ import java.util.Optional;
 public interface CsSlipService {
     List<CsSlip> getAllCsSlip();
     Optional<CsSlip> getCsSlipById(Long id);
+
+    CsSlip addCsSlip(CsSlip csSlip);
+
     int getTotalCsHoursByStudent(Long studentId);
     void updateDeduction(Long csSlipId, int deduction);
 }
