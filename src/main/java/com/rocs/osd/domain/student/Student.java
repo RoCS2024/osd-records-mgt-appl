@@ -4,6 +4,7 @@ import com.rocs.osd.domain.person.Person;
 import com.rocs.osd.domain.section.Section;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -15,6 +16,6 @@ public class Student extends Person implements Serializable {
 
     @Column(length = 10)
     private String studentNumber;
-    @OneToOne
+    @ManyToOne
     private Section section;
 }
